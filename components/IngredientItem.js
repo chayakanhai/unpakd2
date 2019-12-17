@@ -16,11 +16,11 @@ const IngredientItem = props => {
 
 const styles = StyleSheet.create({
   listItem: {
-    padding: 10,
-    marginVertical: 100,
+    paddingTop: 10,
+    marginVertical: 10,
     backgroundColor: "#66ff99",
     borderColor: "black",
-    borderWidth: 1
+    borderWidth: 2
   }
 });
 

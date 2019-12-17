@@ -37,16 +37,16 @@ const IngredientInput = props => {
 const styles = StyleSheet.create({
   inputContainer: {
     flex: 1,
+    backgroundColor: "black",
     justifyContent: "center",
     alignItems: "center"
   },
   textInput: {
     width: "80%",
-    borderBottomColor: "black",
+    backgroundColor: "white",
     borderWidth: 1,
     padding: 10,
-
-    marginBottom: 10
+    marginBottom: 0
   },
   buttonContainer: {
     flexDirection: "row",

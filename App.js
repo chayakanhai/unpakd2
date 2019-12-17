@@ -46,11 +46,10 @@ export default function App() {
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   screen: {
     padding: 50,
-    backgroundColor: "#40bf80",
+    backgroundColor: "black",
     position: "absolute",
     width: "100%",
     height: "100%",
