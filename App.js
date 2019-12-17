@@ -26,10 +26,7 @@ export default function App() {
 
   return (
     <View style={styles.screen}>
-      <Image
-        style={{ width: "100%", height: "100%" }}
-        source={require("./assets/vegs.jpg")}
-      ></Image>
+      <Image style={styles.image} source={require("./assets/vegs.jpg")}></Image>
       <Button title="Add New Ingredient" onPress={() => setIsAddMode(true)} />
       <IngredientInput
         visible={isAddMode}
@@ -58,5 +55,10 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
     justifyContent: "center"
+  },
+  image: {
+    width: "100%",
+    height: "50%",
+    justifyContent: "flex-start"
   }
 });
