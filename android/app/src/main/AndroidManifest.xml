@@ -10,7 +10,10 @@
       android:roundIcon="@mipmap/ic_launcher_round"
       android:allowBackup="false"
       android:theme="@style/AppTheme">
-      <activity
+      <meta-data
+        android:name="com.google.android.geo.API_KEY"
+        android:value="AIzaSyAVE62Ispd8cWVfh6Na5gr4AB43NVB-Vc4"/>
+     <activity
         android:name=".MainActivity"
         android:label="@string/app_name"
         android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
@@ -21,6 +24,5 @@
         </intent-filter>
       </activity>
       <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
-    </application>
-
+     </application>
 </manifest>
