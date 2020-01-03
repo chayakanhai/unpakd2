@@ -1,63 +1,40 @@
-import React, { useState } from "react";
-import { StyleSheet, Text, View, FlatList, Button, Image } from "react-native";
+import React from "react";
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { createAppContainer } from 'react-navigation';
+import { createBottomTabNavigator } from 'react-navigation-tabs';
+import { createStackNavigator } from 'react-navigation-stack';
+import { Button, Text, View, TouchableOpacity, StyleSheet } from 'react-native';
 
-import IngredientItem from "./components/IngredientItem";
-import IngredientInput from "./components/IngredientInput";
 
-export default function App() {
-  const [recipeIngredients, setRecipeIngredients] = useState([]);
-  const [isAddMode, setIsAddMode] = useState(false);
+import Home from "../unpakd-copy/components/Screens/Home";
+import SignUp from "../unpakd-copy/components/Screens/SignUp";
+import ShoppingList from "../unpakd-copy/components/Screens/ShoppingList/ShoppingList";
 
-  const addIngredientHandler = ingredientTitle => {
-    setRecipeIngredients(currentIngredients => [
-      ...currentIngredients,
-      { id: Math.random().toString(), value: ingredientTitle }
-    ]);
-    setIsAddMode(false);
-  };
 
-  const removeGoalHandler = ingredientId => {
-    setRecipeIngredients(currentIngredients => {
-      return currentIngredients.filter(
-        ingredient => ingredient.id !== ingredientId
-      );
-    });
-  };
 
-  return (
-    <View style={styles.screen}>
-      <Image style={styles.image} source={require("./assets/vegs.jpg")}></Image>
-      <Button title="Add New Ingredient" onPress={() => setIsAddMode(true)} />
-      <IngredientInput
-        visible={isAddMode}
-        onAddIngredient={addIngredientHandler}
-      />
-      <FlatList
-        keyExtractor={(item, index) => item.id}
-        data={recipeIngredients}
-        renderItem={itemData => (
-          <IngredientItem
-            id={itemData.item.id}
-            onDelete={removeGoalHandler}
-            title={itemData.item.value}
-          />
-        )}
-      />
-    </View>
-  );
-}
-const styles = StyleSheet.create({
-  screen: {
-    padding: 50,
-    backgroundColor: "black",
-    position: "absolute",
-    width: "100%",
-    height: "100%",
-    justifyContent: "center"
-  },
-  image: {
-    width: "100%",
-    height: "50%",
-    justifyContent: "flex-start"
-  }
-});
+
+
+
+const HomeStack = createStackNavigator({
+        //Defination of Navigaton from home screen
+        Home: { screen: Home },
+        StoreSignUp: { screen: SignUp },
+    },
+
+);
+const SignUpStack = createStackNavigator({
+
+        StoreSignUp: { screen: SignUp },
+        Home: { screen: Home },
+
+    },
+
+);
+const App = createBottomTabNavigator({
+        Home: { screen: HomeStack },
+        SignUp: { screen: SignUpStack },
+    },
+
+
+);
+export default createAppContainer(App);
