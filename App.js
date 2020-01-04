@@ -1,63 +1,53 @@
-import React, { useState } from "react";
-import { StyleSheet, Text, View, FlatList, Button, Image } from "react-native";
+/* eslint-disable prettier/prettier */
+import React, { Component } from 'react';
+import {
+  Platform,
+  StyleSheet,
+  Text,
+  View
+} from 'react-native';
+// eslint-disable-next-line prettier/prettier
+import { createStackNavigator } from 'react-navigation-stack';
+import Map from './components/Screens/Map';
+import Home from './components/Screens/Home';
+import {createAppContainer} from 'react-navigation';
+import { createBottomTabNavigator } from 'react-navigation-tabs';
 
-import IngredientItem from "./components/IngredientItem";
-import IngredientInput from "./components/IngredientInput";
-
-export default function App() {
-  const [recipeIngredients, setRecipeIngredients] = useState([]);
-  const [isAddMode, setIsAddMode] = useState(false);
-
-  const addIngredientHandler = ingredientTitle => {
-    setRecipeIngredients(currentIngredients => [
-      ...currentIngredients,
-      { id: Math.random().toString(), value: ingredientTitle }
-    ]);
-    setIsAddMode(false);
-  };
-
-  const removeGoalHandler = ingredientId => {
-    setRecipeIngredients(currentIngredients => {
-      return currentIngredients.filter(
-        ingredient => ingredient.id !== ingredientId
-      );
-    });
-  };
-
-  return (
-    <View style={styles.screen}>
-      <Image style={styles.image} source={require("./assets/vegs.jpg")}></Image>
-      <Button title="Add New Ingredient" onPress={() => setIsAddMode(true)} />
-      <IngredientInput
-        visible={isAddMode}
-        onAddIngredient={addIngredientHandler}
-      />
-      <FlatList
-        keyExtractor={(item, index) => item.id}
-        data={recipeIngredients}
-        renderItem={itemData => (
-          <IngredientItem
-            id={itemData.item.id}
-            onDelete={removeGoalHandler}
-            title={itemData.item.value}
-          />
-        )}
-      />
-    </View>
-  );
-}
-const styles = StyleSheet.create({
-  screen: {
-    padding: 50,
-    backgroundColor: "black",
-    position: "absolute",
-    width: "100%",
-    height: "100%",
-    justifyContent: "center"
-  },
-  image: {
-    width: "100%",
-    height: "50%",
-    justifyContent: "flex-start"
-  }
+const mapStack = createStackNavigator({
+  MapScreen: { screen: Map }
 });
+
+const ingredientStack = createStackNavigator({
+  IngredientScreen: { screen: Home }
+});
+
+const tabNavigator = createBottomTabNavigator(
+  {
+     MapScreen:mapStack,
+     IngredientScreen: ingredientStack,
+  } ,
+  {
+    defaultNavigationOptions: ({ navigation }) => ({
+      tabBarIcon: ({ focused, horizontal, tintColor }) => {
+       //const { routeName } = navigation.state;
+        //let IconComponent = Ionicons;
+        //let iconName;
+        // if (routeName === 'Home') {
+        //   iconName = `ios-information-circle${focused ? '' : '-outline'}`;
+        //   // Sometimes we want to add badges to some icons.
+        //   // You can check the implementation below.
+        //   IconComponent = HomeIconWithBadge;
+        // } else if (routeName === 'Settings') {
+        //   iconName = `ios-options`;
+        // }
+      },
+}),  tabBarOptions: {
+  activeTintColor: 'tomato',
+  inactiveTintColor: 'gray',
+  
+},
+}
+);
+const container = createAppContainer(tabNavigator);
+
+export default container;

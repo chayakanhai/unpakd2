@@ -1,7 +1,9 @@
 {
+  "name": "unpakd",
+  "displayName": "unpakd",
     "expo": {
         "name": "unpakd",
-        "slug": "unpakd-project",
+        "slug": "unpakd",
         "privacy": "public",
         "sdkVersion": "36.0.0",
         "platforms": ["ios", "android", "web"],
