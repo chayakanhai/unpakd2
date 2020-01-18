@@ -2,8 +2,8 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View, FlatList, Button, Image } from "react-native";
 
-import IngredientItem from "../IngredientItem";
-import IngredientInput from "../IngredientInput";
+import IngredientItem from "./ShoppingList/IngredientItem";
+import IngredientInput from "./ShoppingList/IngredientInput";
 import HomeScreen from "./Home";
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps'; // remove PROVIDER_GOOGLE import if not using Google Maps
 
@@ -30,7 +30,7 @@ const Map = props => {
 const styles = StyleSheet.create({
   screen: {
     padding: 50,
-    backgroundColor: "#40bf80",
+    backgroundColor: "black",
     position: "absolute",
     width: "100%",
     height: "100%",

@@ -1,53 +1,49 @@
-/* eslint-disable prettier/prettier */
-import React, { Component } from 'react';
-import {
-  Platform,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
-// eslint-disable-next-line prettier/prettier
-import { createStackNavigator } from 'react-navigation-stack';
-import Map from './components/Screens/Map';
-import Home from './components/Screens/Home';
-import {createAppContainer} from 'react-navigation';
+import React from "react";
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { createAppContainer } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
+import { createStackNavigator } from 'react-navigation-stack';
+import { Button, Text, View, TouchableOpacity, StyleSheet } from 'react-native';
 
-const mapStack = createStackNavigator({
-  MapScreen: { screen: Map }
-});
 
-const ingredientStack = createStackNavigator({
-  IngredientScreen: { screen: Home }
-});
+import Home from "../unpakd-copy/components/Screens/Home";
+import SignUp from "../unpakd-copy/components/Screens/SignUp";
+import ShoppingList from "../unpakd-copy/components/Screens/ShoppingList/ShoppingList";
 
-const tabNavigator = createBottomTabNavigator(
-  {
-     MapScreen:mapStack,
-     IngredientScreen: ingredientStack,
-  } ,
-  {
-    defaultNavigationOptions: ({ navigation }) => ({
-      tabBarIcon: ({ focused, horizontal, tintColor }) => {
-       //const { routeName } = navigation.state;
-        //let IconComponent = Ionicons;
-        //let iconName;
-        // if (routeName === 'Home') {
-        //   iconName = `ios-information-circle${focused ? '' : '-outline'}`;
-        //   // Sometimes we want to add badges to some icons.
-        //   // You can check the implementation below.
-        //   IconComponent = HomeIconWithBadge;
-        // } else if (routeName === 'Settings') {
-        //   iconName = `ios-options`;
-        // }
-      },
-}),  tabBarOptions: {
-  activeTintColor: 'tomato',
-  inactiveTintColor: 'gray',
-  
-},
-}
+
+
+
+
+
+const HomeStack = createStackNavigator({
+        //Defination of Navigaton from home screen
+        Home: { screen: Home },
+        StoreSignUp: { screen: SignUp },        
+        ShoppingList: { screen: ShoppingList}
+    },
+
 );
-const container = createAppContainer(tabNavigator);
+const SignUpStack = createStackNavigator({
 
-export default container;
+        StoreSignUp: { screen: SignUp },
+        ShoppingList: { screen: ShoppingList},
+        Home: { screen: Home },
+
+    },
+    );
+    const ShoppingListStack = createBottomTabNavigator({
+        ShoppingList: { screen: ShoppingList},
+        Home: { screen: HomeStack },
+        SignUp: { screen: SignUpStack },
+    },
+
+);
+const App = createBottomTabNavigator({
+        Home: { screen: HomeStack },
+        SignUp: { screen: SignUpStack },
+        ShoppingList: { screen: ShoppingList},
+    },
+
+
+);
+export default createAppContainer(App);
