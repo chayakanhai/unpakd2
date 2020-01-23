@@ -1,74 +1,66 @@
-import React, { Component } from "react";
-import { View, StyleSheet, Text, StatusBar, Button, Image, TouchableOpacity } from "react-native";
-import { createStackNavigator } from 'react-navigation-stack';
+/* eslint-disable prettier/prettier */
+import React, { useState } from "react";
+import { StyleSheet, Text, View, FlatList, Button, Image } from "react-native";
+import { createStackNavigator , StackViewTransitionConfigs} from 'react-navigation'; 
 
-class Home extends Component {
-    render() {
-        return ( 
-        <View style = { styles.container } > 
-        <StatusBar barStyle="light-content"/>
+import IngredientItem from "../IngredientItem";
+import IngredientInput from "../IngredientInput";
+import HomeScreen from "./Home";
 
-            <View style = { styles.logoContainer } >
-                <Image style = { styles.logo }
-                    source = { require("../../assets/icon.png") } >
-                </Image>
 
-                <Text styles={styles.header}>UnpaKd</Text>
+export default function App() {
+  const [recipeIngredients, setRecipeIngredients] = useState([]);
+  const [isAddMode, setIsAddMode] = useState(false);
 
-                <View style={styles.infoContainer}>
-            <Text style={styles.title}>Plasticfree food shopping for a better world!</Text>
+  const addIngredientHandler = ingredientTitle => {
+    setRecipeIngredients(currentIngredients => [
+      ...currentIngredients,
+      { id: Math.random().toString(), value: ingredientTitle }
+    ]);
+    setIsAddMode(false);
+  };
 
-            <Button style= {styles.button}
-                title='Sign in as a store'
-                 onPress={()=> this.props.navigation.navigate('SignUp')} /> 
-            </View>
-            </View > 
+  const removeGoalHandler = ingredientId => {
+    setRecipeIngredients(currentIngredients => {
+      return currentIngredients.filter(
+        ingredient => ingredient.id !== ingredientId
+      );
+    });
+  };
 
-            </View>
-
-        );
-    }
+  return (
+    <View style={styles.screen}>
+      <Image
+        style={{ width: "100%", height: "100%" }}
+        source={require("../../assets/vegs.jpg")}
+      ></Image>
+      <Button title="Add New Ingredient" onPress={() => setIsAddMode(true)} />
+      <IngredientInput
+        visible={isAddMode}
+        onAddIngredient={addIngredientHandler}
+      />
+      <FlatList
+        keyExtractor={(item, index) => item.id}
+        data={recipeIngredients}
+        renderItem={itemData => (
+          <IngredientItem
+            id={itemData.item.id}
+            onDelete={removeGoalHandler}
+            title={itemData.item.value}
+          />
+        )}
+      />
+    </View>
+  );
 }
 
-
-
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: 'black',
-        flexDirection: 'column'
-    },
-
-    logo: {
-        width: '50%',
-        height:300,        
-        marginTop: 10,
-        position: 'absolute'
-    },
-    header:{
-        color: 'black',
-        fontSize: 60,
-    },
-    title: {
-        color: 'white',
-        fontSize: 18,
-        textAlign: 'center',
-        marginTop: 400
-    },
-    infoContainer:{
-        position: 'absolute',
-        left: 0,
-        right: 0,
-        bottom: 0, 
-        height: 50,
-        padding: 20,
-        backgroundColor: 'white'
-    },
-    button: { 
-      color: 'red'
-    }
-})
-
-
-
-export default Home; 
+  screen: {
+    padding: 50,
+    backgroundColor: "#40bf80",
+    position: "absolute",
+    width: "100%",
+    height: "100%",
+    justifyContent: "center"
+  }
+});
