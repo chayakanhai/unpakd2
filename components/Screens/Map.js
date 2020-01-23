@@ -7,6 +7,22 @@ import IngredientInput from "../IngredientInput";
 import HomeScreen from "./Home";
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps'; // remove PROVIDER_GOOGLE import if not using Google Maps
 
+this.state = {
+  markers: [{
+    title: 'burgundisch',
+    coordinates: {
+      latitude: 52.370216,
+      longitude: 5.295
+    },
+  },
+  {
+    title: 'mister ham',
+    coordinates: {
+      latitude: 52.870216,
+      longitude: 5.295
+    },  
+  }]
+}
 const Map = props => {  
   return (
     <View style= {styles.container}>
@@ -18,8 +34,14 @@ const Map = props => {
          longitude: 5.295,
          latitudeDelta: 3.85,
          longitudeDelta: 3.221,
-       }}
-      />
+       }}>
+          {this.state.markers.map(marker => (
+    <MapView.Marker 
+      coordinate={marker.coordinates}
+      title={marker.title}
+    />
+  ))}
+</MapView>
      {/* <View>
             <Button onPress={() =>props.navigation.navigate('HomeScreen')} title="Home"/>
      </View> */}
