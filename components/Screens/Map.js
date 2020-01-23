@@ -2,8 +2,7 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View, FlatList, Button, Image } from "react-native";
 
-import IngredientItem from "../IngredientItem";
-import IngredientInput from "../IngredientInput";
+
 import HomeScreen from "./Home";
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps'; // remove PROVIDER_GOOGLE import if not using Google Maps
 

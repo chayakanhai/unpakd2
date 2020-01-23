@@ -1,53 +1,72 @@
-/* eslint-disable prettier/prettier */
-import React, { Component } from 'react';
-import {
-  Platform,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
-// eslint-disable-next-line prettier/prettier
-import { createStackNavigator } from 'react-navigation-stack';
-import Map from './components/Screens/Map';
-import Home from './components/Screens/Home';
-import {createAppContainer} from 'react-navigation';
+import React from "react";
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { createAppContainer } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
+import { createStackNavigator } from 'react-navigation-stack';
+import { SafeAreaView } from "react-navigation";
 
-const mapStack = createStackNavigator({
-  MapScreen: { screen: Map }
-});
 
-const ingredientStack = createStackNavigator({
-  IngredientScreen: { screen: Home }
-});
 
-const tabNavigator = createBottomTabNavigator(
-  {
-     MapScreen:mapStack,
-     IngredientScreen: ingredientStack,
-  } ,
-  {
-    defaultNavigationOptions: ({ navigation }) => ({
-      tabBarIcon: ({ focused, horizontal, tintColor }) => {
-       //const { routeName } = navigation.state;
-        //let IconComponent = Ionicons;
-        //let iconName;
-        // if (routeName === 'Home') {
-        //   iconName = `ios-information-circle${focused ? '' : '-outline'}`;
-        //   // Sometimes we want to add badges to some icons.
-        //   // You can check the implementation below.
-        //   IconComponent = HomeIconWithBadge;
-        // } else if (routeName === 'Settings') {
-        //   iconName = `ios-options`;
-        // }
-      },
-}),  tabBarOptions: {
-  activeTintColor: 'tomato',
-  inactiveTintColor: 'gray',
-  
-},
+
+import Home from "./components/Screens/Home";
+import SignUp from "./components/Screens/SignUp";
+import ShoppingList from "./components/Screens/ShoppingList";
+import Map from "./components/Screens/Map";
+import { render } from "react-dom";
+
+
+if (Platform.OS === "android") {
+    // removes extra space at top of header on android
+    SafeAreaView.setStatusBarHeight(0);
 }
-);
-const container = createAppContainer(tabNavigator);
 
-export default container;
+
+const HomeStack = createStackNavigator({
+        Home: { screen: Home },
+        StoreSignUp: { screen: SignUp },
+        Map: { screen: Map },
+        ShoppingList: { screen: ShoppingList }
+    },
+
+);
+const SignUpStack = createStackNavigator({
+    StoreSignUp: { screen: SignUp },
+    ShoppingList: { screen: ShoppingList },
+    Home: { screen: Home },
+    Map: { screen: Map },
+
+}, );
+
+
+const ShoppingListStack = createStackNavigator({
+        ShoppingList: { screen: ShoppingList },
+        Map: { screen: Map },
+        Home: { screen: HomeStack },
+        SignUp: { screen: SignUpStack },
+    },
+
+);
+
+const MapStack = createStackNavigator({
+    Map: { screen: Map },
+    ShoppingList: { screen: ShoppingList },
+    Home: { screen: HomeStack },
+    SignUp: { screen: SignUpStack },
+});
+
+const App = createBottomTabNavigator({
+    Home: { screen: HomeStack },
+    SignUp: { screen: SignUpStack },
+    ShoppingList: { screen: ShoppingListStack },
+    Map: { screen: MapStack },
+}, );
+
+
+
+
+
+
+
+
+
+export default createAppContainer(App);
