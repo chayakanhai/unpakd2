@@ -7,6 +7,7 @@ import HomeScreen from "./Home";
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps'; // remove PROVIDER_GOOGLE import if not using Google Maps
 
 this.state = {
+  
   markers: [{
     title: 'burgundisch',
     coordinates: {
@@ -41,9 +42,7 @@ const Map = props => {
     />
   ))}
 </MapView>
-     {/* <View>
-            <Button onPress={() =>props.navigation.navigate('HomeScreen')} title="Home"/>
-     </View> */}
+
    </View>   
   );
 };

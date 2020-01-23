@@ -13,7 +13,7 @@ import SignUp from "./components/Screens/SignUp";
 import ShoppingList from "./components/Screens/ShoppingList";
 import Map from "./components/Screens/Map";
 import { render } from "react-dom";
-
+import store from "./components/services/getStore"
 
 if (Platform.OS === "android") {
     // removes extra space at top of header on android
@@ -25,7 +25,8 @@ const HomeStack = createStackNavigator({
         Home: { screen: Home },
         StoreSignUp: { screen: SignUp },
         Map: { screen: Map },
-        ShoppingList: { screen: ShoppingList }
+        ShoppingList: { screen: ShoppingList },
+        Store:{screen :store},
     },
 
 );
@@ -34,7 +35,7 @@ const SignUpStack = createStackNavigator({
     ShoppingList: { screen: ShoppingList },
     Home: { screen: Home },
     Map: { screen: Map },
-
+    Store:{screen :store},
 }, );
 
 
@@ -43,6 +44,7 @@ const ShoppingListStack = createStackNavigator({
         Map: { screen: Map },
         Home: { screen: HomeStack },
         SignUp: { screen: SignUpStack },
+        Store:{screen :store},
     },
 
 );
@@ -52,6 +54,15 @@ const MapStack = createStackNavigator({
     ShoppingList: { screen: ShoppingList },
     Home: { screen: HomeStack },
     SignUp: { screen: SignUpStack },
+    Store:{screen :store},
+});
+const storeStack = createStackNavigator({
+  Store:{screen :store},
+  Map: { screen: Map },
+  ShoppingList: { screen: ShoppingList },
+  Home: { screen: HomeStack },
+  SignUp: { screen: SignUpStack }
+  
 });
 
 const App = createBottomTabNavigator({
@@ -59,6 +70,7 @@ const App = createBottomTabNavigator({
     SignUp: { screen: SignUpStack },
     ShoppingList: { screen: ShoppingListStack },
     Map: { screen: MapStack },
+    store: {screen: storeStack}
 }, );
 
 
